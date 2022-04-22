@@ -4,18 +4,43 @@ import FeaturedPost from "./components/FeaturedPost";
 import ListPost from "./components/ListPost";
 import posts from "./resources/posts";
 import CreatePost from "./components/CreatePost";
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 
 function App() {
   const [isVisible, setIsVisible] = useState(false);
+  const [allPosts, setAllPosts] = useState(posts());
+  const [postId, setPostId] = useState();
+
+  const onPress = () => {
+    setIsVisible(!isVisible);
+  };
+  const handleOnSave = (post) => {
+    if (postId) {
+      const copyOfPosts = Array.from(allPosts);
+      const newAllPosts = copyOfPosts.filter((post, index) => index == postId); //[...copyOfPosts, post];
+      setAllPosts([...newAllPosts, post]);
+      setPostId();
+    } else {
+      setAllPosts([...allPosts, post]);
+    }
+    setIsVisible(false); //onPress();
+  };
+  const handleOnEtdit = (postId) => {
+    setIsVisible(true); //onPress()
+    setPostId(postId);
+  };
 
   return (
     <div className="App">
-      <NavBar onPress={() => setIsVisible(true)} />
-      //if(isVisible) <Component />
-      condition ? true : false // for this time
+      <NavBar onPress={() => onPress()} />
+
       {isVisible ? (
-        <CreatePost />
+        <CreatePost
+          //complete
+          postToUpdate={allPosts[postId]}
+          onPress={() => onPress()}
+          onSave={handleOnSave}
+        />
       ) : (
         <>
           <FeaturedPost
@@ -30,7 +55,7 @@ function App() {
           />
         </>
       )}
-      <ListPost posts={posts()} />
+      <ListPost posts={allPosts} onEdit={handleOnEtdit} />
     </div>
   );
 }
