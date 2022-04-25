@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/blog.css";
+import { Link, NavLink } from "react-roiter-dom";
 
 const NavBar = ({ onPress }) => {
   return (
@@ -16,7 +17,7 @@ const NavBar = ({ onPress }) => {
       </div>
       <ul>
         <li>
-          <a href="#">Join our team</a>
+          <Link to="join-our-team">Join our team</Link>
         </li>
         <li>
           <a href="#">Contact us</a>

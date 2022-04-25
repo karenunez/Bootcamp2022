@@ -5,6 +5,10 @@ import ListPost from "./components/ListPost";
 import posts from "./resources/posts";
 import CreatePost from "./components/CreatePost";
 import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import JoinOurTeam from "./components/pages/JoinOurTeam";
+import ContactUs from "./components/pages/ContactUs";
+import HomePage from "./components/pages/HomePage";
 
 function App() {
   const [isVisible, setIsVisible] = useState(false);
@@ -33,6 +37,10 @@ function App() {
   return (
     <div className="App">
       <NavBar onPress={() => onPress()} />
+      <Routes>
+        <Route path="join-our-team" element={<JoinOurTeam />} />
+        <Route path="contact-us" element={<ContactUs />} />
+      </Routes>
 
       {isVisible ? (
         <CreatePost
